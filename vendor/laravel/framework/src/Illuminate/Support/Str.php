@@ -4,6 +4,7 @@ namespace Illuminate\Support;
 
 use Closure;
 use Illuminate\Support\Traits\Macroable;
+use JsonException;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
@@ -545,7 +546,17 @@ class Str
             return false;
         }
 
-        return json_validate($value, 512);
+        if (function_exists('json_validate')) {
+            return json_validate($value, 512);
+        }
+
+        try {
+            json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -895,7 +906,17 @@ class Str
      */
     public static function padBoth($value, $length, $pad = ' ')
     {
-        return mb_str_pad($value, $length, $pad, STR_PAD_BOTH);
+        if (function_exists('mb_str_pad')) {
+            return mb_str_pad($value, $length, $pad, STR_PAD_BOTH);
+        }
+
+        $short = max(0, $length - mb_strlen($value));
+        $shortLeft = floor($short / 2);
+        $shortRight = ceil($short / 2);
+
+        return mb_substr(str_repeat($pad, $shortLeft), 0, $shortLeft).
+               $value.
+               mb_substr(str_repeat($pad, $shortRight), 0, $shortRight);
     }
 
     /**
@@ -908,7 +929,13 @@ class Str
      */
     public static function padLeft($value, $length, $pad = ' ')
     {
-        return mb_str_pad($value, $length, $pad, STR_PAD_LEFT);
+        if (function_exists('mb_str_pad')) {
+            return mb_str_pad($value, $length, $pad, STR_PAD_LEFT);
+        }
+
+        $short = max(0, $length - mb_strlen($value));
+
+        return mb_substr(str_repeat($pad, $short), 0, $short).$value;
     }
 
     /**
@@ -921,7 +948,13 @@ class Str
      */
     public static function padRight($value, $length, $pad = ' ')
     {
-        return mb_str_pad($value, $length, $pad, STR_PAD_RIGHT);
+        if (function_exists('mb_str_pad')) {
+            return mb_str_pad($value, $length, $pad, STR_PAD_RIGHT);
+        }
+
+        $short = max(0, $length - mb_strlen($value));
+
+        return $value.mb_substr(str_repeat($pad, $short), 0, $short);
     }
 
     /**

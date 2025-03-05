@@ -326,9 +326,6 @@ class Builder implements BuilderContract
 
             $this->eagerLoad = array_merge($this->eagerLoad, $query->getEagerLoads());
 
-            $this->withoutGlobalScopes(
-                $query->removedScopes()
-            );
             $this->query->addNestedWhereQuery($query->getQuery(), $boolean);
         } else {
             $this->query->where(...func_get_args());
@@ -1021,7 +1018,7 @@ class Builder implements BuilderContract
      * @param  string  $pageName
      * @param  int|null  $page
      * @param  \Closure|int|null  $total
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      *
      * @throws \InvalidArgumentException
      */
@@ -1031,7 +1028,7 @@ class Builder implements BuilderContract
 
         $total = value($total) ?? $this->toBase()->getCountForPagination();
 
-        $perPage = value($perPage, $total) ?? $this->model->getPerPage();
+        $perPage = value($perPage, $total) ?: $this->model->getPerPage();
 
         $results = $total
             ? $this->forPage($page, $perPage)->get($columns)
@@ -1598,7 +1595,7 @@ class Builder implements BuilderContract
     }
 
     /**
-     * Set the relationships that should be eager loaded.
+     * Specify relationships that should be eager loaded.
      *
      * @param  array<array-key, array|(\Closure(\Illuminate\Database\Eloquent\Relations\Relation<*,*,*>): mixed)|string>|string  $relations
      * @param  (\Closure(\Illuminate\Database\Eloquent\Relations\Relation<*,*,*>): mixed)|string|null  $callback

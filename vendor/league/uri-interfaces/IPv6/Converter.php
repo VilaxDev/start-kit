@@ -134,12 +134,4 @@ final class Converter
             default => ['ipAddress' => null, 'zoneIdentifier' => null],
         };
     }
-
-    /**
-     * Tells whether the host is an IPv6.
-     */
-    public static function isIpv6(Stringable|string|null $host): bool
-    {
-        return null !== self::parse($host)['ipAddress'];
-    }
 }

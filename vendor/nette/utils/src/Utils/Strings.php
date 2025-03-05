@@ -547,6 +547,7 @@ class Strings
 		return $utf8 && $captureOffset
 			? self::bytesToChars($subject, [$m])[0]
 			: $m;
+
 	}
 
 
