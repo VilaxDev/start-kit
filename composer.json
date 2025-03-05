@@ -1,0 +1,27 @@
+{
+    "name": "vilaxdev/payment-manager",
+    "description": "An authentication package",
+    "type": "library",
+    "require": {
+        "laravel/framework": ">=7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vilaxdev\\PaymentManager\\": "packages/VilaxDev/PaymentManager/src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "VilaxDev"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VilaxDev\\PaymentManager\\PaymentManager"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
