@@ -17,7 +17,17 @@ class PaymentManager extends ServiceProvider
 
         // Publicar vistas para que el usuario pueda sobrescribirlas
         $this->publishes([
-            __DIR__ . '/views' => resource_path('views/vendor/payment-manager'),
+            __DIR__ . '/views' => resource_path('views/auth'),
+        ]);
+
+        // Publicar rutas
+        $this->publishes([
+            __DIR__ . '/routes' => base_path('routes/admin'),
+        ]);
+
+        // Publicar controladores (si están en un directorio personalizado)
+        $this->publishes([
+            __DIR__ . '/controllers' => app_path('Http/Controllers/Auth'),
         ]);
     }
 
