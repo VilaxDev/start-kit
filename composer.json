@@ -21,5 +21,10 @@
                 "VilaxDev\\PaymentManager\\PaymentManager"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan payment-manager:install"
+        ]
     }
 }

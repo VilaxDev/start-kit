@@ -22,13 +22,14 @@ class PaymentManager extends ServiceProvider
 
         // Publicar rutas
         $this->publishes([
-            __DIR__ . '/routes' => base_path('routes/admin'),
+            __DIR__ . '/routes' => base_path('routes'),
         ]);
 
         // Publicar controladores (si están en un directorio personalizado)
         $this->publishes([
             __DIR__ . '/controllers' => app_path('Http/Controllers/Auth'),
         ]);
+        
     }
 
     public function register()
