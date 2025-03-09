@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use VilaxDev\PaymentManager\controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 
 // Grupo de rutas para autenticación
 Route::group(['middleware' => ['web']], function () {
@@ -14,6 +14,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', function () {
-        return view('payment-manager::dashboard');
+        return view('auth.dashboard');
     })->middleware('auth')->name('dashboard');
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace VilaxDev\PaymentManager\controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,7 +13,7 @@ class AuthController extends Controller
     // Muestra el formulario de login
     public function showLoginForm()
     {
-        return view('payment-manager::login');
+        return view('auth.login');
     }
 
     // Procesa el login
@@ -34,7 +34,7 @@ class AuthController extends Controller
     // Muestra el formulario de registro
     public function showRegisterForm()
     {
-        return view('payment-manager::register');
+        return view('auth.register');
     }
 
     // Procesa el registro de usuario
